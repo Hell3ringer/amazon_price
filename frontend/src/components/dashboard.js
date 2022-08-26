@@ -9,6 +9,7 @@ class Dashboard extends React.Component {
       url: "",
       isEnd: true,
       myPrice: "",
+      obj : "",
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -21,17 +22,19 @@ class Dashboard extends React.Component {
     });
   }
   handleSubmit(event) {
-    // this.setState({ isPref: true });
-    // console.log("A name was submitted: " + this.state.prefTitle);
-    const obj = {
-        prefTitle:this.state.prefTitle,
-      url:this.state.url,
-      isEnd:this.state.isEnd,
-      myPrice:this.state.myPrice,
-    }
-    console.log(obj);
-    // const p = writeJsonFile('input.json', obj);
-    // fs.writeFile("input.json" , obj , (err) => {if(err) throw err})
+
+    fetch("/api").then(
+      res => res.json()    
+      
+    ).then(
+      data => {
+        // this.setState({
+            // obj : data
+        // })
+        console.log(JSON.stringify(data));
+      }
+    )
+
     event.preventDefault();
   }
 
