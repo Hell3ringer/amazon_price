@@ -23,7 +23,9 @@ class Dashboard extends React.Component {
   }
   handleSubmit(event) {
 
-    fetch("/api").then(
+    fetch("/api" , {
+      method : 'POST'
+    }).then(
       res => res.json()    
       
     ).then(
