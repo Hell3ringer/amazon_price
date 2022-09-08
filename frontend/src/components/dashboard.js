@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 // import {writeJsonFile} from 'write-json-file';
 
 class Dashboard extends React.Component {
@@ -7,12 +8,16 @@ class Dashboard extends React.Component {
     this.state = {
       prefTitle: "",
       url: "",
-      isEnd: true,
+      isEnd: false,
       myPrice: "",
+      toEmail : "",
       obj : "",
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleGET = this.handleGET.bind(this);
+    this.handleState = this.handleState.bind(this);
+    this.handleAdd = this.handleAdd.bind(this);
   }
   handleChange(event) {
     const { name, value } = event.target;
@@ -20,25 +25,59 @@ class Dashboard extends React.Component {
       [name]: value,
       // isPref : false
     });
-  }
-  handleSubmit(event) {
 
-    fetch("/api" , {
-      method : 'POST'
-    }).then(
-      res => res.json()    
-      
-    ).then(
-      data => {
-        // this.setState({
-            // obj : data
-        // })
-        console.log(JSON.stringify(data));
-      }
-    )
+    event.preventDefault()
+  }
+  handleAdd(){
+    const {prefTitle , url , isEnd , myPrice} = this.state
+    console.log(prefTitle);
+    console.log(url);
+    console.log(isEnd);
+    console.log(myPrice);
+  }
+  handleState(event){
+    console.log("state is");
+    console.log(JSON.stringify(this.state.obj));
 
     event.preventDefault();
   }
+  handleGET(event){
+    
+    axios.get("/api")
+    .then(({data}) => {
+
+     this.setState({
+      obj : data
+     })
+     console.log("inside set");
+     console.log(data);
+    })
+     
+    event.preventDefault()
+  }
+  handleSubmit(event) {
+
+   const obj = {
+    "url" : this.state.url,
+    "myPrice" : this.state.myPrice,
+    "isEnd" : this.state.isEnd,
+    "toEmail" : this.state.toEmail,
+    "prefTitle" : this.state.prefTitle,
+   }
+    
+    axios.post("/api" , obj)
+    .then(() => {
+      console.log("data entered...");
+      // console.log(JSON.stringify(data))
+      // this.setState({
+      //   obj : data
+      //  })
+
+
+    })
+    event.preventDefault();
+  }
+
 
   render() {
     return (
@@ -78,17 +117,31 @@ class Dashboard extends React.Component {
             />
           </label>
 
+          {/* // to email */}
+          <label>
+            email :
+            <input
+              type="email"
+              name="toEmail"
+              value={this.state.toEmail}
+              onChange={this.handleChange}
+            />
+          </label>
+
           {/* // isEnd */}
           <label>
             do u want to reccur :
             <input
               type="checkbox"
               name="isEnd"
-              value={this.state.isEnd}
+              value={Boolean(this.state.isEnd)} 
               onChange={this.handleChange}
             />
+            {this.state.isEnd}
+          <button onClick={this.handleState}>Show State</button>
           </label>
-
+          <button onClick={this.handleAdd}>Show Form</button>
+          <button onClick={this.handleGET}>GET</button>
           <button onClick={this.handleSubmit}>submit</button>
         </form>
         this is from dashboard...
