@@ -26,21 +26,13 @@ def api():
         path = os.path.join(path,"input.json")
         with open(path , 'r') as f:
             try:
-                obj = json.load(f)
-                print("obj len")
+                obj = json.load(f)                
                 obj['data'].append(data)
                 print(type(obj))
             except ValueError:
                 obj = {"data" : [data]}
 
-        #     if obj.length() != 0:
-
-        #         obj['data'].append(data)
-        #         print("appended data...")
-        #         print(obj)
-        #     else :
-        #         obj = {"data" : data}
-
+      
         with open(path , 'w') as f:    
             json.dump(obj , f)
         # obj['items'].append(data['id'])

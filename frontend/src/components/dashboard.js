@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 // import {writeJsonFile} from 'write-json-file';
-
+import RenderList from "./renderList";
 class Dashboard extends React.Component {
   constructor(props) {
     super(props);
@@ -17,7 +17,6 @@ class Dashboard extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleGET = this.handleGET.bind(this);
     this.handleState = this.handleState.bind(this);
-    this.handleAdd = this.handleAdd.bind(this);
   }
   handleChange(event) {
     const { name, value } = event.target;
@@ -28,13 +27,7 @@ class Dashboard extends React.Component {
 
     event.preventDefault()
   }
-  handleAdd(){
-    const {prefTitle , url , isEnd , myPrice} = this.state
-    console.log(prefTitle);
-    console.log(url);
-    console.log(isEnd);
-    console.log(myPrice);
-  }
+ 
   handleState(event){
     console.log("state is");
     console.log(JSON.stringify(this.state.obj));
@@ -49,8 +42,7 @@ class Dashboard extends React.Component {
      this.setState({
       obj : data
      })
-     console.log("inside set");
-     console.log(data);
+     
     })
      
     event.preventDefault()
@@ -116,7 +108,7 @@ class Dashboard extends React.Component {
               onChange={this.handleChange}
             />
           </label>
-
+          
           {/* // to email */}
           <label>
             email :
@@ -140,14 +132,15 @@ class Dashboard extends React.Component {
             {this.state.isEnd}
           <button onClick={this.handleState}>Show State</button>
           </label>
-          <button onClick={this.handleAdd}>Show Form</button>
+          
           <button onClick={this.handleGET}>GET</button>
           <button onClick={this.handleSubmit}>submit</button>
         </form>
         this is from dashboard...
         <br></br>
-        {/* {this.state.isPref && this.state.prefTitle} */}
-        {/* {this.setState({isPref : false})} */}
+
+        
+        <RenderList />
       </div>
     );
   }
