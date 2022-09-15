@@ -81,8 +81,8 @@ class Dashboard extends React.Component {
   render() {
     return (
       // prefTitle
-      <div>
-        <form>
+      <div className="container col g-5">
+        <form className="row-auto border-dark bg-light">
           <div class="mb-3">
             <label class="form-label"> Prefered Title : </label>
             <input
@@ -160,11 +160,12 @@ class Dashboard extends React.Component {
           <button onClick={this.handleState}>Show State</button>
 
           <button onClick={this.handleGET}>GET</button>
-          <button onClick={this.handleSubmit}>submit</button>
+          <button className="btn btn-primary" onClick={this.handleSubmit}>submit</button>
         </form>
         
-        <br></br>
-        <RenderList />
+        <br className="border-dark bg-dark"></br>
+
+        <RenderList/>
       </div>
     );
   }

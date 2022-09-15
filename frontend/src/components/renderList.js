@@ -40,13 +40,13 @@ function RenderList(params) {
     getList();
   }, []);
   return (
-    <div>
+    <div className="row-auto container justify-content-center bg-white">
       from render list...
       <button onClick={() => getList()}>Refresh</button>
       <button onClick={() => getLog()}>obj data</button>
-      <div className="card w-50">
+      <div className="container d-flex flex-column justify-content-center align-items-center">
         {list.map((item, idx) => (
-          <div orientation="horizontal" key={item.prefTitle}>
+          <div className="card w-50 mb-2 px-2 pb-2 border-dark" orientation="horizontal" key={item.prefTitle}>
             <div className="card-footer">
                 Product
             </div>
