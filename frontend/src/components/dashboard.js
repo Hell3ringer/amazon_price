@@ -10,8 +10,8 @@ class Dashboard extends React.Component {
       url: "",
       isEnd: false,
       myPrice: "",
-      toEmail : "",
-      obj : "",
+      toEmail: "",
+      obj: "",
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -20,126 +20,150 @@ class Dashboard extends React.Component {
   }
   handleChange(event) {
     const { name, value } = event.target;
-    this.setState({
-      [name]: value,
-      // isPref : false
-    });
+    if(name === "isEnd"){
+      console.log("value" + value);
+      if(value === true){
+        this.setState({
+          isEnd : false
+        })
+      }else{
+        this.setState({
+          isEnd : true
+        })
 
-    event.preventDefault()
-  }
- 
-  handleState(event){
-    console.log("state is");
-    console.log(JSON.stringify(this.state.obj));
+      }
+    }else{
+
+      this.setState({
+        [name]: value,
+        // isPref : false
+      });
+    }
 
     event.preventDefault();
   }
-  handleGET(event){
-    
-    axios.get("/api")
-    .then(({data}) => {
 
-     this.setState({
-      obj : data
-     })
-     
-    })
-     
-    event.preventDefault()
+  handleState(event) {
+    console.log("state is");
+    // console.log(JSON.stringify(this.state.obj));
+    console.log(this.state.isEnd);
+
+    event.preventDefault();
+  }
+  handleGET(event) {
+    axios.get("/api").then(({ data }) => {
+      this.setState({
+        obj: data,
+      });
+    });
+
+    event.preventDefault();
   }
   handleSubmit(event) {
+    const obj = {
+      url: this.state.url,
+      myPrice: this.state.myPrice,
+      isEnd: this.state.isEnd,
+      toEmail: this.state.toEmail,
+      prefTitle: this.state.prefTitle,
+    };
 
-   const obj = {
-    "url" : this.state.url,
-    "myPrice" : this.state.myPrice,
-    "isEnd" : this.state.isEnd,
-    "toEmail" : this.state.toEmail,
-    "prefTitle" : this.state.prefTitle,
-   }
-    
-    axios.post("/api" , obj)
-    .then(() => {
+    axios.post("/api", obj).then(() => {
       console.log("data entered...");
       // console.log(JSON.stringify(data))
       // this.setState({
       //   obj : data
       //  })
-
-
-    })
+    });
     event.preventDefault();
   }
-
 
   render() {
     return (
       // prefTitle
       <div>
         <form>
-          <label>
-            prefered title :
+          <div class="mb-3">
+            <label class="form-label"> Prefered Title : </label>
             <input
               type="text"
               name="prefTitle"
+              class="form-control"
+              placeholder="prefered title"
               value={this.state.prefTitle}
               onChange={this.handleChange}
             />
-          </label>
-          {/* <input type="submit" value="Submit"></input> */}
+            <div class="form-text">
+              Please select an appropiate title for your product
+            </div>
+          </div>
 
           {/* url */}
-          <label>
-            url :
+          <div class="mb-3">
+            <label class="form-label"> URL : </label>
             <input
               type="url"
               name="url"
+              class="form-control"
+              placeholder="url"
               value={this.state.url}
               onChange={this.handleChange}
             />
-          </label>
+          </div>
 
           {/* // myPrice */}
-          <label>
-            set your prefered price :
-            <input
-              type="number"
-              name="myPrice"
-              value={this.state.myPrice}
-              onChange={this.handleChange}
-            />
-          </label>
-          
+          <div class="row g-3 allign-items-center">
+            <div class="col-auto">
+              <label class="col-form-label"> Prefered price : </label>
+            </div>
+
+            <div class="col-auto">
+              <div class="input-group">
+                <span class="input-group-text">₹</span>
+                <input
+                  type="text"
+                  name="myPrice"
+                  class="form-control"
+                  value={this.state.myPrice}
+                  onChange={this.handleChange}
+                />
+              </div>
+            </div>
+          </div>
+
           {/* // to email */}
-          <label>
-            email :
+          <div class="mb-3">
+            <label class="form-label"> Email : </label>
             <input
               type="email"
               name="toEmail"
+              class="form-control"
               value={this.state.toEmail}
               onChange={this.handleChange}
             />
-          </label>
+          </div>
 
           {/* // isEnd */}
-          <label>
-            do u want to reccur :
+          <div class="mb-3 form-check">
             <input
+              
               type="checkbox"
               name="isEnd"
-              value={Boolean(this.state.isEnd)} 
+              class="form-check-input"
+              value={Boolean(this.state.isEnd)}
               onChange={this.handleChange}
             />
             {this.state.isEnd}
+
+            <label class="form-check-label"> Do u want to reccur ? </label>
+          </div>
           <button onClick={this.handleState}>Show State</button>
-          </label>
-          
+
           <button onClick={this.handleGET}>GET</button>
           <button onClick={this.handleSubmit}>submit</button>
         </form>
-        this is from dashboard...
-        <br></br>
-
         
+        <br></br>
         <RenderList />
       </div>
     );
