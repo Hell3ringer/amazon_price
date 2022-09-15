@@ -12,7 +12,8 @@ function RenderList(params) {
         .then(({data}) => {
             
             
-            setList( data['data'] )
+            
+            setList( data['data'])
             console.log("data");
             console.log({data}['data']['data']);
             
@@ -23,25 +24,49 @@ function RenderList(params) {
     }
     function getLog(){
         console.log("list");
+       
         console.log({list});
+        
     }
 
-    // useEffect(() => {
-    //     getList()
-    //     return
-    // })
+    function deleteItem(item,idx){
+        console.log("inside delteitem");
+        console.log(item.prefTitle);
+        const obj = {
+            "index" : idx,
+            "prefTitle" : item.prefTitle
+        }
+        axios.delete("/api" , {data : obj})
+        .then(() => {
+            console.log("item got deleted");
+            getList();
+        })
+        .catch((e) => {
+            console.log("errors");
+            console.log(e);
+        })
+    }
+
+    useEffect(() => {
+        getList()
+    } , [])
     return(
         <div>
             from render list...
-            <button onClick={getList}>Refresh</button>
-            <button onClick={getLog}>obj data</button>
+            <button onClick={() => getList()}>Refresh</button>
+            <button onClick={() => getLog()}>obj data</button>
             <div>
-                {list.map((item) => (<ol key={item.prefTitle}><ul>
+                {
+                list.map((item,idx) => (<div orientation="horizontal" key={item.prefTitle}><ol key={item.prefTitle}><ul>
                     {item.prefTitle}</ul><ul>
                     {item.myPrice}</ul><ul>
                     {item.toEmail}</ul><ul>
                     {item.url}</ul><ul>
-                    </ul></ol>))}
+                    </ul>
+                    </ol>
+                    <button onClick={() => deleteItem(item,idx)}>delete</button>
+                    </div>))
+                }
             </div>
             
 

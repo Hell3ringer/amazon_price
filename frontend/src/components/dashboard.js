@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-// import {writeJsonFile} from 'write-json-file';
+
 import RenderList from "./renderList";
 class Dashboard extends React.Component {
   constructor(props) {

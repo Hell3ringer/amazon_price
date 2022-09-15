@@ -1,1 +1,1 @@
-{"data": [{"url": "www.a.c", "myPrice": "123", "isEnd": false, "toEmail": "a@b.c", "prefTitle": "title123"}, {"url": "www.a.c", "myPrice": "123", "isEnd": false, "toEmail": "a@b.c", "prefTitle": "title"}, {"url": "www.a.c", "myPrice": "321", "isEnd": false, "toEmail": "a@b.c", "prefTitle": "rendertitle"}]}
+{"data": [{"url": "www.a.c", "myPrice": "123", "isEnd": "false", "toEmail": "a@b.c", "prefTitle": "title123"}, {"url": "www.a.c", "myPrice": "123", "isEnd": "false", "toEmail": "a@b.c", "prefTitle": "render title"}]}
