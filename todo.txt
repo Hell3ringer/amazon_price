@@ -1,0 +1,14 @@
+TODO:
+    form validation
+    improve css
+    insert python script
+    design chart from css
+    input.json encryption?
+    
+    
+    deploy
+
+
+BUGS:
+    check box not working
+    getList api in renderList get called twice

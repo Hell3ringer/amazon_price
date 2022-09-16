@@ -15,8 +15,8 @@ class Dashboard extends React.Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleGET = this.handleGET.bind(this);
-    this.handleState = this.handleState.bind(this);
+    // this.handleGET = this.handleGET.bind(this);
+    // this.handleState = this.handleState.bind(this);
   }
   handleChange(event) {
     const { name, value } = event.target;
@@ -43,23 +43,24 @@ class Dashboard extends React.Component {
     event.preventDefault();
   }
 
-  handleState(event) {
-    console.log("state is");
-    // console.log(JSON.stringify(this.state.obj));
-    console.log(this.state.isEnd);
+  // handleState(event) {
+  //   console.log("state is");
+  //   // console.log(JSON.stringify(this.state.obj));
+  //   console.log(this.state.isEnd);
 
-    event.preventDefault();
-  }
-  handleGET(event) {
-    axios.get("/api").then(({ data }) => {
-      this.setState({
-        obj: data,
-      });
-    });
+  //   event.preventDefault();
+  // }
+  // handleGET(event) {
+  //   axios.get("/api").then(({ data }) => {
+  //     this.setState({
+  //       obj: data,
+  //     });
+  //   });
 
-    event.preventDefault();
-  }
+  //   event.preventDefault();
+  // }
   handleSubmit(event) {
+    //event.checkValidation()
     const obj = {
       url: this.state.url,
       myPrice: this.state.myPrice,
@@ -67,15 +68,18 @@ class Dashboard extends React.Component {
       toEmail: this.state.toEmail,
       prefTitle: this.state.prefTitle,
     };
-
+    
     axios.post("/api", obj).then(() => {
       console.log("data entered...");
       // console.log(JSON.stringify(data))
       // this.setState({
-      //   obj : data
-      //  })
-    });
-    event.preventDefault();
+        //   obj : data
+        //  })
+      })
+      .then(() => {
+        this.handleGET();
+      })
+      event.preventDefault();
   }
 
   render() {
@@ -83,28 +87,28 @@ class Dashboard extends React.Component {
       // prefTitle
       <div className="container col g-5">
         <form className="row-auto border-dark bg-light">
-          <div class="mb-3">
-            <label class="form-label"> Prefered Title : </label>
+          <div className="mb-3">
+            <label className="form-label"> Prefered Title : </label>
             <input
               type="text"
               name="prefTitle"
-              class="form-control"
+              className="form-control"
               placeholder="prefered title"
               value={this.state.prefTitle}
               onChange={this.handleChange}
             />
-            <div class="form-text">
+            <div className="form-text">
               Please select an appropiate title for your product
             </div>
           </div>
 
           {/* url */}
-          <div class="mb-3">
-            <label class="form-label"> URL : </label>
+          <div className="mb-3">
+            <label className="form-label"> URL : </label>
             <input
-              type="url"
+              type="text"
               name="url"
-              class="form-control"
+              className="form-control"
               placeholder="url"
               value={this.state.url}
               onChange={this.handleChange}
@@ -112,18 +116,18 @@ class Dashboard extends React.Component {
           </div>
 
           {/* // myPrice */}
-          <div class="row g-3 allign-items-center">
-            <div class="col-auto">
-              <label class="col-form-label"> Prefered price : </label>
+          <div className="row g-3 allign-items-center">
+            <div className="col-auto">
+              <label className="col-form-label"> Prefered price : </label>
             </div>
 
-            <div class="col-auto">
-              <div class="input-group">
-                <span class="input-group-text">₹</span>
+            <div className="col-auto">
+              <div className="input-group">
+                <span className="input-group-text">₹</span>
                 <input
                   type="text"
                   name="myPrice"
-                  class="form-control"
+                  className="form-control"
                   value={this.state.myPrice}
                   onChange={this.handleChange}
                 />
@@ -132,35 +136,36 @@ class Dashboard extends React.Component {
           </div>
 
           {/* // to email */}
-          <div class="mb-3">
-            <label class="form-label"> Email : </label>
+          <div className="mb-3">
+            <label className="form-label"> Email : </label>
             <input
               type="email"
               name="toEmail"
-              class="form-control"
+              className="form-control"
+              required              
               value={this.state.toEmail}
               onChange={this.handleChange}
             />
           </div>
 
           {/* // isEnd */}
-          <div class="mb-3 form-check">
+          <div className="mb-3 form-check">
             <input
               
               type="checkbox"
               name="isEnd"
-              class="form-check-input"
+              className="form-check-input"
               value={Boolean(this.state.isEnd)}
               onChange={this.handleChange}
             />
             {this.state.isEnd}
 
-            <label class="form-check-label"> Do u want to reccur ? </label>
+            <label className="form-check-label"> Do u want to reccur ? </label>
           </div>
-          <button onClick={this.handleState}>Show State</button>
+          {/* <button onClick={this.handleState}>Show State</button>
 
-          <button onClick={this.handleGET}>GET</button>
-          <button className="btn btn-primary" onClick={this.handleSubmit}>submit</button>
+          <button onClick={this.handleGET}>GET</button> */}
+          <button type="submit" className="btn btn-primary" onClick={this.handleSubmit}>submit</button>
         </form>
         
         <br className="border-dark bg-dark"></br>
